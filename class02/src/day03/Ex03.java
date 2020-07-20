@@ -5,15 +5,18 @@ import java.util.Scanner;
 public class Ex03 {
 
 	/*
-	 ����3)
-	 	���� �� ���� �Է¹޾�
-	 	���� ū ������ ����ϱ�
+		* 삼항연산자로
+	
+		문제3)
+			세 수를 입력받아,
+			큰 순서대로 출력하기
+			
 	 */
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
-		int first, second, third, tempSmall, tempMiddle;
+		int first, second, third;
 		
 		System.out.print("첫 번째 수를 입력하세요 : ");
 		int num1 = sc.nextInt();
