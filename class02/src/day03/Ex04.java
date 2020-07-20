@@ -27,7 +27,7 @@ public class Ex04 {
 		
 		System.out.printf("%d년은 %s입니다.", 
 				year, 
-				(year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0)) ? "평년" : "윤년");
+				(year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0)) ? "윤년" : "평년");
 		
 	}
 }
