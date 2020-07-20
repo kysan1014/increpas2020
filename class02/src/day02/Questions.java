@@ -11,17 +11,17 @@ public class Questions {
 	}
 	
 	/*
-		1. µÎ °³ÀÇ ¼ıÀÚ¸¦ ÀÔ·Â¹ŞÀº ÈÄ, µÎ ¼ö¸¦ ÀÌ¿ëÇÏ¿© »ç°¢Çü, »ï°¢ÇüÀÇ ³ĞÀÌ¸¦ ±¸ÇÏ¿© Ãâ·ÂÇÏ½Ã¿À.
+		1. ë‘ ìˆ˜ë¥¼ ì…ë ¥ë°›ì•„ ì‚¼ê°í˜•ì´ë‚˜ ì‚¬ê°í˜•ì˜ ë„“ì´ë¥¼ êµ¬í•˜ê¸°
 	*/
 	
 	public double[] question1() {
 		
-		System.out.print("¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
+		System.out.print("ìˆ«ìë¥¼ ì…ë ¥í•˜ì„¸ìš” : ");
 		int num1 = sc.nextInt();
-		System.out.print("¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
+		System.out.print("ìˆ«ìë¥¼ ì…ë ¥í•˜ì„¸ìš” : ");
 		int num2 = sc.nextInt();
 		
-		System.out.println("»ï°¢ÇüÀº 3, »ç°¢ÇüÀº 4¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
+		System.out.println("ì‚¼ê°í˜•ì€ 3, ì‚¬ê°í˜•ì€ 4ë¥¼ ì…ë ¥í•˜ì„¸ìš” : ");
 		int flag = sc.nextInt();
 		
 		return solveQ1(flag, num1, num2);
@@ -32,19 +32,19 @@ public class Questions {
 		if (flag == 3) answer = num1 * num2 / 2.0;
 		else if (flag == 4) answer = (double) (num1 * num2);
 		else {
-			System.out.println("´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä.");
+			System.out.println("ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”.");
 			question1();
 		}
 		return new double[] {flag, answer};
 	}
 
 	/*
-		2. ÇÏ³ªÀÇ ¼ıÀÚ(¹İÁö¸§)À» ÀÔ·Â¹Ş¾Æ ¿øÀÇ ³ĞÀÌ¿Í µÑ·¹¸¦ ±¸ÇÏ¿© Ãâ·Â
+		2. ë°˜ì§€ë¦„ì„ ì…ë ¥ë°›ì•„ ì›ì˜ ë„“ì´ì™€ ë‘˜ë ˆë¥¼ êµ¬í•˜ì‹œì˜¤
 	 */
 	
 	public double[] question2() {
 		
-		System.out.print("¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
+		System.out.print("ìˆ«ìë¥¼ ì…ë ¥í•˜ì„¸ìš” : ");
 		int num1 = sc.nextInt();
 		
 		return solveQ2(num1);
@@ -55,12 +55,12 @@ public class Questions {
 	}
 	
 	/*
-		3. ±İ¾×À» ÀÔ·Â¹Ş¾Æ È­Æó ´ÜÀ§º° °³¼ö¸¦ ±¸ÇÏ¿© Ãâ·Â
+		3. ê¸ˆì•¡ì„ ì…ë ¥ë°›ì•„ í™”í ë‹¨ìœ„ë³„ í•„ìš”í•œ ê°œìˆ˜ë¥¼ êµ¬í•˜ì‹œì˜¤.
 	 */
 	
 	public Object[][] question3() {
 		
-		System.out.print("¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
+		System.out.print("ê¸ˆì•¡ì„ ì…ë ¥í•˜ì„¸ìš” : ");
 		int money = sc.nextInt();
 		
 		return solveQ3(money);
@@ -70,7 +70,7 @@ public class Questions {
 
 		int temp = money;
 		int currency = 50000;
-		String[] currencyStr = {"¿À¸¸¿ø", "¸¸¿ø", "¿ÀÃµ¿ø", "Ãµ¿ø", "¿À¹é¿ø", "¹é¿ø", "½Ê¿ø"};
+		String[] currencyStr = {"ì˜¤ë§Œì›", "ë§Œì›", "ì˜¤ì²œì›", "ì²œì›", "ì˜¤ë°±ì›", "ë°±ì›", "ì‹­ì›"};
 		
 		Object[][] answers = new Object[currencyStr.length][2];
 		
@@ -91,12 +91,12 @@ public class Questions {
 	}
 
 	/*
-		4. ³¯Â¥¸¦ ÀÔ·Â¹Ş¾Æ ÇØ´ç ³¯Â¥°¡ ¸î ÀÏ, ¸î ½Ã°£, ¸î ºĞ, ¸î ÃÊÀÎÁö ±¸ÇÏ¿© Ãâ·Â
+		4. ë…„ìˆ˜ë¥¼ ì…ë ¥ë°›ì•„ í•´ë‹¹ ë…„ì´ ëª‡ ì¼, ëª‡ ì‹œê°„, ëª‡ ë¶„, ëª‡ ì´ˆì¸ì§€ ê³„ì‚°
 	 */
 	
 	public Object[][] question4() {
 		
-		System.out.print("¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
+		System.out.print("ë…„ìˆ˜ë¥¼ ì…ë ¥í•˜ì„¸ìš” : ");
 		double time = sc.nextDouble();
 		
 		return solveQ4(time);
@@ -106,7 +106,7 @@ public class Questions {
 
 		double temp = time;
 		int[] measurement = {24, 60, 60};
-		String[] measurementStr = {"ÀÏ", "½Ã°£", "ºĞ", "ÃÊ"};
+		String[] measurementStr = {"ì¼", "ì‹œê°„", "ë¶„", "ì´ˆ"};
 		Object[][] answers = new Object[measurementStr.length][2];
 		
 		for (int i = 0; i < measurementStr.length; i++) {
