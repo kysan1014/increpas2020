@@ -17,5 +17,16 @@ public class Test02 {
 		System.out.printf("%s : %d", name, age);
 		
 		
+		/*
+		
+			System.out.print("이름을 입력하세요 : ");
+			StringBuffer personalInfo = new StringBuffer(sc.next());
+			
+			System.out.print("나이를 입력하세요 : ");
+			personalInfo = personalInfo.append(new String(" : " + sc.nextInt()));
+			
+			System.out.println(personalInfo);
+		
+		*/
 	}
 }
