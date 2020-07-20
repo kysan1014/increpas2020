@@ -18,23 +18,23 @@ public class Answers {
 			case 0:
 				double[] a1 = q.question1();
 				if ((int) a1[0] == 3) {
-					System.out.printf("»ï°¢ÇüÀÇ ³ĞÀÌ : %.3f%n", a1[1]);
+					System.out.printf("ì‚¼ê°í˜•ì˜ ë„“ì´ : %.3f%n", a1[1]);
 				} else {
-					System.out.printf("»ç°¢ÇüÀÇ ³ĞÀÌ : %.3f%n", a1[1]);
+					System.out.printf("ì‚¬ê°í˜•ì˜ ë„“ì´ : %.3f%n", a1[1]);
 				}
 				System.out.println();
 				break;
 
 			case 1:
 				double[] a2 = q.question2();
-				System.out.printf("¿øÀÇ ³ĞÀÌ : %.3f, ¿øÀÇ µÑ·¹ : %.3f%n", a2[0], a2[1]);
+				System.out.printf("ì›ì˜ ë„“ì´ : %.3f, ë‘˜ë ˆ : %.3f%n", a2[0], a2[1]);
 				System.out.println();
 				break;
 
 			case 2:
 				Object[][] a3 = q.question3();
 				for (int i = 0; i < a3.length; i++) {
-					System.out.printf("%s °³¼ö : %d%n", a3[i][0], a3[i][1]);
+					System.out.printf("%s ê°œìˆ˜ : %d%n", a3[i][0], a3[i][1]);
 				}
 				System.out.println();
 				break;
@@ -42,14 +42,14 @@ public class Answers {
 			case 3:
 				Object[][] a4 = q.question4();
 				for (int i = 0; i < a4.length; i++) {
-					System.out.printf("%s ¼ö : %d%n", a4[i][0], a4[i][1]);
+					System.out.printf("%s ìˆ˜ : %d%n", a4[i][0], a4[i][1]);
 				}
 				System.out.println();
 				break;
 			}
 
 			if (j != qNum - 1) {
-				System.out.print("°è¼Ó ÇÏ½Ã°Ú½À´Ï±î ? \n ¿¹ : 1, ¾Æ´Ï¿À : 0\t\t");
+				System.out.print("ê³„ì† í•˜ì‹œê² ìŠµë‹ˆê¹Œ? \n ì˜ˆ : 1 ì•„ë‹ˆì˜¤ : 0\t\t");
 				int flag = sc.nextInt();
 				if (flag == 0) {
 					break;
@@ -60,7 +60,7 @@ public class Answers {
 		}
 
 		System.out.println("=======================================================\n");
-		System.out.println("¼ö°íÇÏ¼Ì½À´Ï´Ù");
+		System.out.println("ìˆ˜ê³ í•˜ì…¨ìŠµë‹ˆë‹¤.");
 
 		sc.close();
 
