@@ -8,10 +8,10 @@ public class Test02 {
 		
 		Scanner sc = new Scanner(System.in);
 
-		System.out.print("ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä : ");
+		System.out.print("ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš” : ");
 		String name = sc.next();
 		
-		System.out.print("³ªÀÌ¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
+		System.out.print("ë‚˜ì´ë¥¼ ì…ë ¥í•˜ì„¸ìš” : ");
 		int age = sc.nextInt();
 		
 		System.out.printf("%s : %d", name, age);
@@ -19,10 +19,10 @@ public class Test02 {
 		
 		/*
 		
-			System.out.print("ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä : ");
+			System.out.print("ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš” : ");
 			StringBuffer personalInfo = new StringBuffer(sc.next());
 			
-			System.out.print("³ªÀÌ¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
+			System.out.print("ë‚˜ì´ë¥¼ ì…ë ¥í•˜ì„¸ìš” : ");
 			personalInfo = personalInfo.append(new String(" : " + sc.nextInt()));
 			
 			System.out.println(personalInfo);
