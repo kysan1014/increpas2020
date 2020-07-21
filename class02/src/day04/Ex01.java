@@ -21,6 +21,7 @@ public class Ex01 {
 				
 					입력받은 값이 범위를 벗어나거나, 숫자가 아닌 경우
 					자동으로 다시 입력받게 하기
+					
 		 */
 
 		int input = getInputRecur();
