@@ -19,7 +19,7 @@ public class Ex02 {
 		System.out.print("세자리 수를 입력하세요 : ");
 		int i = sc.nextInt();
 		
-		System.out.println(i > 300 ? "300보다 큰 수" : "300보다 작은 수");
+		System.out.println(i > 300 ? "300보다 큰 수" : (i == 300 ? "300과 같은 수" : "300보다 작은 수"));
 	}
 	
 }

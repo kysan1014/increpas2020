@@ -1,5 +1,6 @@
 package day03;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Bonus01 {
@@ -16,13 +17,21 @@ public class Bonus01 {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.print("세자리 수를 입력하세요 : ");
-		int num = sc.nextInt();
+//		System.out.print("세자리 수를 입력하세요 : ");
+//		int num = sc.nextInt();
+		
+		int num = new Random().nextInt(900) + 100;
 		
 		int n100 = num / 100 * 100;
 		int close100 = num - n100 >= 50 ? n100 + 100 : n100;
 		
-		System.out.printf( "%d이 가까우므로 %d를 %s 한다.", close100, Math.abs(close100 - num), (close100 >= num ? "더해야" : "빼야") );
+		String msg = String.format( "%d은 %d에 가까우므로 %d를 %s 한다.", 
+									num, 
+									close100, 
+									Math.abs(close100 - num), 
+									(close100 >= num ? "더해야" : "빼야") );
+		
+		System.out.println(msg);
 
 	}
 
