@@ -4,11 +4,12 @@ import java.util.Arrays;
 
 public class Album {
 
+	public final int MAX_LENGTH = 12;
+
 	private String singer;
 	private int no;
 	private String date;
 	private String title;
-	public final int MAX_LENGTH = 12;
 	private Track[] tracks;
 	
 	public Album() {
