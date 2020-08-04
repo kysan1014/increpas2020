@@ -27,6 +27,16 @@ public class Test08 extends Nemo {
 		for (int i = 0; i < nemos.length; i++) {
 			nemos[i].toPrint();
 		}
+		
+		System.out.println(nemos[0] instanceof Object);
+		System.out.println(nemos[0] instanceof Nemo);
+		System.out.println(nemos[0] instanceof Square);
+		System.out.println(nemos[0] instanceof Rectangle);
+		System.out.println(nemos[1] instanceof Object);
+		System.out.println(nemos[1] instanceof Nemo);
+		System.out.println(nemos[1] instanceof Square);
+		System.out.println(nemos[1] instanceof Rectangle);
+		
 	}
 
 	public static void main(String[] args) {
