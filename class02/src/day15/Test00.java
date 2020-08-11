@@ -33,7 +33,6 @@ class Saram {
 	
 	public Saram() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Saram(String name, int age, char gen) {

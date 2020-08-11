@@ -8,7 +8,6 @@ public class Ex01 {
 	static Scanner sc;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		/*
 		

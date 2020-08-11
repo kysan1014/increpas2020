@@ -35,7 +35,6 @@ class TestEx01 {
 		
 	}
 	private int getcirconference(int radius) {
-		// TODO Auto-generated method stub
 		return (int) (Math.PI * radius * 2);
 	}
 	private int getArea(int radius) {

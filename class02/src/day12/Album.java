@@ -13,7 +13,6 @@ public class Album {
 	private Track[] tracks;
 	
 	public Album() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Album(String singer, int no, String date, String title, Track[] tracks) {

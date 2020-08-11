@@ -77,7 +77,6 @@ class TestEx03 {
 
 			@Override
 			public int compare(int[] o1, int[] o2) {
-				// TODO Auto-generated method stub
 				return o2[o2.length - 2] - o1[o1.length - 2];
 			}
 
@@ -124,7 +123,6 @@ class TestEx03 {
 	}
 
 	private void compare() {
-		// TODO Auto-generated method stub
 
 	}
 

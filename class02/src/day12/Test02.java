@@ -26,7 +26,6 @@ class Member {
 	char gen;
 
 	public Member() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Member(int mno, String id, String name, String mail, String tel, char gen) {
