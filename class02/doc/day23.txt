@@ -1,0 +1,35 @@
+#day23
+
+Properties
+=> Map의 역할을 하는 클래스
+
+	일반 Map과의 차이점은 파일(외부장치)을 이용해서
+	직접 데이터를 읽어서 Map처럼 저장할 수 있고
+	Map에 저장된 데이터를 직접 파일로 출력해서 저장할 수 있다.
+	
+	주의사항 ]
+	
+		파일의 내용을 읽을 때 인코딩(encoding)이 되지 않는 다는 점이다.
+		==> 한글 파일의 경우 파일 자체에 인코딩을 하지 않으면
+			내용이 한글인 경우 한글이 개져서 들어온다.
+		
+		참고 ] 
+		
+			한글이 포함된 파일을 Properties에서 사용하기 위해서
+			인코딩(encoding) 시키는 방법
+			
+			1. cmd창을 연다.
+			2. path를 JAVA_HOME으로 잡아준다.
+			3. native2ascii 기능을 이용해서 인코딩해준다.
+			
+				형식 ]
+					native2ascii [파일 경로] [파일 저장 경로]
+					native2ascii d:\sample\sample.txt d:\sample\sample_encoded.txt
+					
+		참고 ]
+			Properties 클래스는 오직 String으로만 키값과 데이터를 처리해야 한다.
+			
+		참고 ]
+			Properties 클래스는 또 하나의 특징을 가지고 있는데
+			현재 프로그램의 정보를 Map으로 자동 처리하는 기능을 가지고 있다.
+			
