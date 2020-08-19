@@ -1,0 +1,6 @@
+#this!
+#Wed Aug 19 11:20:16 KST 2020
+x=0
+area=0
+class=class day25.Won
+y=0
