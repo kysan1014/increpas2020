@@ -90,6 +90,14 @@ from
 	scott.emp
 where 
 	substr(to_char(sal), -3, 1) = '0';
+	
+select
+	ename,
+	sal
+from
+	scott.emp
+where
+	mod(sal, 1000) = 0;
 
 /*
     8. 사원의 사원이름, 급여, 커미션을 조회하세요.
