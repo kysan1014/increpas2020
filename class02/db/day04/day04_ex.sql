@@ -36,14 +36,28 @@ where hiredate = (select hiredate from scott.emp where ename = 'KING');
 */
 select empno, sal, sal - (select avg(sal) from scott.emp) from scott.emp;
 
+
 /*
     6. 부서의 급여합계가 가장 높은 부서의 사원들의 정보를 조회하세요.
 */
-select * 
-from scott.emp
-where deptno = (select deptno 
-				from (select deptno, avg(sal) from scott.emp group by deptno order by avg(sal) desc)
-                where rownum = 1);
+select 
+	* 
+from 
+	scott.emp
+where 
+	deptno = (select 
+					deptno 
+				from 
+					(select 
+						deptno, avg(sal) 
+					 from 
+						scott.emp 
+					 group by 
+						deptno 
+					 order by 
+						avg(sal) desc)
+                where 
+                	rownum = 1);
 
 /*
     7. 커미션을 받는 직원이 한사람이라도 있는 부서의 소속 사원들의 정보를 조회하세요.
@@ -54,9 +68,19 @@ where deptno in (select deptno from scott.emp where comm is not null);
 /*
     8. 평균급여보다 급여가 높고 이름이 4글자 또는 5글자인 사원의 정보를 조회하세요.
 */
-select * from scott.emp
-where sal < (select avg(sal) from scott.emp)
-and length(ename) in (4,5);
+select 
+	* 
+from 
+	scott.emp
+where 
+	sal > (
+			select 
+				avg(sal) 
+			from
+				scott.emp
+			) 
+and 
+	length(ename) in (4,5);
 
 /*
     9. 사원의 이름이 4글자로된 사원과 같은 직급의 사원들의 정보를 조회하세요.
@@ -87,8 +111,24 @@ where sal > all(select avg(sal) from scott.emp group by to_char(hiredate, 'yy'))
         모든 사원의 정보를 조회하고
         아니면 조회하지마세요.
 */
-select *
-from scott.emp
-where exists (select * from scott.emp
-				where length(ename) = (select length(ename) from scott.emp where mgr is null));
+select 
+	*
+from 
+	scott.emp
+where 
+	exists (
+			select 
+				* 
+			from 
+				scott.emp
+			where 
+				length(ename) = (
+								  select 
+								  	  length(ename) 
+								  from 
+								  	  scott.emp 
+								  where 
+								  	  mgr is null
+								 )
+			 );
 				
