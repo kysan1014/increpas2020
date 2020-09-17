@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="java"/>
 	<classpathentry kind="src" path="db"/>
 	<classpathentry kind="lib" path="C:/Users/class02/Dropbox/2020_increpas_coding_academy/class/java/app/jsoup-1.13.1.jar"/>
+	<classpathentry kind="lib" path="C:/app/db/product/11.2.0/dbhome_1/jdbc/lib/ojdbc6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
