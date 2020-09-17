@@ -1,0 +1,31 @@
+create or replace procedure proc_exception_prac3
+(
+	dno emp.deptno%type
+)
+is
+	cnt number := 0;
+	
+	ecpt01 EXCEPTION;
+	
+begin
+	select
+		count(*)
+	into
+		cnt
+	from
+		emp
+	where
+		deptno = dno
+	;
+	
+	if cnt <= 3 then
+		raise ecpt01;
+	end if;
+
+	dbms_output.put_line(dno||'번 부서의 사원 수 : '||cnt);
+
+exception
+	when ecpt01 then
+		dbms_output.put_line(dno||'번 부서의 인원이 너무 적음');
+end;
+/

@@ -1,0 +1,33 @@
+create or replace procedure proc_exception_prac
+(
+	dno dept.deptno%type
+)
+is
+	eno emp.empno%type;
+	
+begin
+	select
+		empno
+	into
+		eno
+	from
+		emp
+	where
+		deptno = dno
+	;
+	
+	dbms_output.put_line(eno);
+
+	exception
+		when too_many_rows then
+			dbms_output.put_line('결과가 한 행이 아닙니다');
+		when no_data_found then
+			dbms_output.put_line('결과가 없습니다');
+		when others then
+			dbms_output.put_line('알 수 없는 오류');
+end;
+/
+
+execute proc_exception_prac(10);
+execute proc_exception_prac(40);
+execute proc_exception_prac('dd');

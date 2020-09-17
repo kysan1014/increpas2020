@@ -1,0 +1,19 @@
+create or replace trigger trig_before_emp_delete
+before delete
+	on emp
+	for each row
+	
+begin
+	insert into emp_backup
+		(empno, ename, job, mgr, hiredate, resigndate, sal, comm, deptno)
+	values
+		(:old.empno, :old.ename, :old.job, :old.mgr, :old.hiredate, sysdate, :old.sal, :old.comm, :old.deptno);
+
+end;
+/
+	
+select ename, deptno, hiredate from emp order by deptno;
+delete from emp where deptno = 10;
+select ename, deptno, hiredate from emp order by deptno;
+select ename, deptno, hiredate, resigndate from emp_backup order by deptno;
+rollback;

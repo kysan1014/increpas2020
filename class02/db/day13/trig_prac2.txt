@@ -1,0 +1,15 @@
+create or replace trigger trig_after_emp_insert
+after insert
+	on emp
+	for each row
+	when (new.empno = 8000)
+begin
+	dbms_output.put_line(:new.empno||'번 '||:new.ename||'사원이 입사하였습니다');
+end;
+/
+	
+insert into emp
+	(empno, ename, job, mgr, hiredate, sal, comm, deptno)
+values
+	(8000, 'name', 'job', null, sysdate, 0, null, 10);
+rollback;

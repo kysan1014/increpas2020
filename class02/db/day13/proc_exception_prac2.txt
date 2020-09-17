@@ -1,0 +1,19 @@
+create or replace procedure proc_exception_prac2
+(
+	iename emp.ename%type,
+	dno dept.deptno%type
+)
+is
+	pk_ecpt exception;
+	pragma exception_init(pk_ecpt, -1400);
+
+begin
+	insert into emp (ename, deptno)
+	values (iename, dno);
+
+exception
+	when pk_ecpt then
+		dbms_output.put_line('사원 번호는 ★필★수★');
+
+end;
+/

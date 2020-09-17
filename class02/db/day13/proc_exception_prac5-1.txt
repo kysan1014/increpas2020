@@ -1,0 +1,47 @@
+create or replace procedure proc_exception_prac5
+(
+	dno dept.deptno%type,
+	rate number
+)
+is
+	cursor emp_info is
+		select empno
+		from emp
+		where deptno = dno
+	for update;
+	data emp_info%rowtype;
+	excp exception;
+
+begin
+	open emp_info;
+
+	loop
+		fetch emp_info into data;
+		exit when emp_info%notfound;
+
+		update emp
+		set sal = sal + sal * rate
+		where current of emp_info;
+	end loop;
+
+	if emp_info%rowcount < 4 then
+		raise excp;
+	end if;
+	
+	close emp_info;
+
+exception
+	when excp then
+		dbms_output.put_line('부서의 사원 수가 너무 적음');
+		rollback;
+
+end;
+/
+
+select ename, sal from emp where deptno = 10;
+execute proc_exception_prac5(10, 0.5);
+select ename, sal from emp where deptno = 10;
+select ename, sal from emp where deptno = 20;
+execute proc_exception_prac5(20, 0.5);
+select ename, sal from emp where deptno = 20;
+rollback;

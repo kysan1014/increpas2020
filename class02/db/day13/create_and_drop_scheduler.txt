@@ -1,0 +1,58 @@
+conn system/1234;
+
+grant create any procedure, create any job, execute any program to scott;
+
+conn scott/tiger;
+
+create table test01 (tno number, tdate date);
+
+create or replace procedure proc_insert_test01
+as
+begin
+	insert into test01
+		(tno, tdate)
+	values
+		(
+			(select nvl(max(tno) + 1, 100) from test01),
+			sysdate
+		);
+end;
+/
+
+begin
+	dbms_scheduler.create_program(
+		program_name => 'PROG01',
+		program_type => 'STORED_PROCEDURE',
+		program_action => 'PROC_INSERT_TEST01',
+		comments => 'Test Date Insertion Using a Scheduler',
+		enabled => TRUE
+	);
+end;
+/
+
+begin
+	dbms_scheduler.create_schedule (
+		schedule_name => 'MINUTELY_SCHEDULE01',
+		start_date => sysdate,
+		end_date => sysdate + 1,
+		repeat_interval => 'FREQ=MINUTELY;INTERVAL=1',
+		comments => 'Scheduled to execute procedure every minute for a day'
+	);
+end;
+/
+
+begin
+	dbms_scheduler.create_job(
+		job_name => 'JOB01',
+		program_name => 'PROG01',
+		schedule_name => 'MINUTELY_SCHEDULE01',
+		comments => 'Test Date Insertion Batch Using a Scheduler',
+		enabled => TRUE
+	);
+end;
+/
+
+execute dbms_scheduler.drop_job('JOB01',false); 
+execute dbms_scheduler.drop_program('PROG01',false);
+execute dbms_scheduler.drop_schedule('MINUTELY_SCHEDULE01',false);
+

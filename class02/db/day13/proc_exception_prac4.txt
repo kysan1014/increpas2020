@@ -1,0 +1,27 @@
+create or replace procedure proc_exception_prac4
+(
+	eno emp.empno%type,
+	name emp.ename%type,
+	dno emp.deptno%type
+)
+is
+	len number;
+	excp4 exception;
+
+begin
+	if length(to_char(eno)) < 4 then
+		raise excp4;
+	end if;
+	
+	insert into emp (empno, ename, deptno)
+	values (eno, name, dno);
+
+exception
+	when excp4 then
+		dbms_output.put_line('사원 번호는 4자리 이상이여야됨요');
+
+end;
+/
+
+execute proc_exception_prac4(10, 'name', 10);
+execute proc_exception_prac4(1000, 'name', 10);
