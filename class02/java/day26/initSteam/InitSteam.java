@@ -1,11 +1,15 @@
 package day26.initSteam;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class InitSteam {
@@ -14,6 +18,7 @@ public class InitSteam {
 	private PreparedStatement psmt;
 	private Random rand = new Random();
 	private PrintWriter pw;
+	private BufferedReader br;
 
 	public InitSteam() {
 		try {
@@ -23,13 +28,17 @@ public class InitSteam {
 //			insertIntoCountries();
 //			insertIntoLanguages();
 //			insertIntoLocations();
-			insertIntoUsers();
+//			insertIntoUsers();
+//			insertIntoAccounts();
+			insertIntoGenre();
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			close();
@@ -118,11 +127,77 @@ public class InitSteam {
 			}
 		}
 	}
+	
+	private void insertIntoAccounts() throws SQLException, ClassNotFoundException {
+		String sql = "insert into accounts values(?, ?, ?, ?, ?, null)";
+		int randPw = 0;
+		int randCode = 0;
+		for (int j = 1; j < 156010; j++) {
+				if (j % 200 == 0) {
+					close();
+					getConnection();
+				}
+				randPw = rand.nextInt(10000);
+				randCode = rand.nextInt(1000);
+				psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, j);
+				psmt.setInt(2, j);
+				psmt.setString(3, String.format("%1$016d", j));
+				psmt.setString(4, String.format("%1$04d", j + randPw));
+				psmt.setString(5, String.format("%1$03d", j + randCode));
+				
+				int cnt = psmt.executeUpdate();
+				if (cnt == 1) {
+					String txt = "insert into accounts values (" + 
+									j + ", " + 
+									j + ", '" + 
+									String.format("%1$016d", j) + "', '" + 
+									String.format("%1$04d", randPw) + "', '" + 
+									String.format("%1$03d", randCode) + 
+									"');\n";
+					System.out.println(txt);
+					pw.write(txt);
+				}
+		}
+	}
+	
+	private void insertIntoGenre() throws SQLException, ClassNotFoundException, IOException {
+		br = new BufferedReader(new FileReader("D:\\git\\repository\\class02\\java\\day26\\initSteam\\genre_list.txt"));
+		ArrayList<String> gnameList = new ArrayList<String>();
+		String line = "";
+		while ((line = br.readLine()) != null) {
+			gnameList.add(line.trim());
+		}
+		br.close();
+		
+		String sql = "insert into genre values(?, ?)";
+
+		for (int j = 0; j < gnameList.size(); j++) {
+			if (j % 200 == 0) {
+				close();
+				getConnection();
+			}
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, j + 1);
+			psmt.setString(2, gnameList.get(j));
+
+			
+			int cnt = psmt.executeUpdate();
+			if (cnt == 1) {
+				String txt = "insert into genre values (" + 
+						(j + 1) + ", '" + 
+						gnameList.get(j) +
+						"');\n";
+				System.out.println(txt);
+				pw.write(txt);
+			}
+		}
+	}
 
 	private void close() {
 		try {
-			psmt.close();
-			conn.close();
+			if (psmt != null) psmt.close();
+			if (conn != null) conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -106,3 +106,5 @@ set joindate = sysdate - 3
 where joindate is null;
 
 alter table member01 add constraint mem01_joindate_nn not null;
+
+alter table member01 modify pw default '12345' constraint mem01_pw_nn not null;
