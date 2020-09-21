@@ -33,15 +33,16 @@ public class Test01 {
 	}
 
 	private void insertIntoScores() throws SQLException {
-		String sql = "insert into scores (pid, kor, math, hist, sci, eng, testdate) values(?, ?, ?, ?, ?, ?, sysdate - 10)";
+		String sql = "insert into scores (pid, kor, math, hist, sci, eng, testdate) values(?, ?, ?, ?, ?, ?, sysdate)";
 		Random rand = new Random();
-		int kor = rand.nextInt(40) + 1 + 60;
-		int math = rand.nextInt(40) + 1 + 60;
-		int hist = rand.nextInt(40) + 1 + 60;
-		int sci = rand.nextInt(40) + 1 + 60;
-		int eng = rand.nextInt(40) + 1 + 60;
 
 		for (int index = 1; index < 21; index++) {
+			int kor = rand.nextInt(40) + 1 + 60;
+			int math = rand.nextInt(40) + 1 + 60;
+			int hist = rand.nextInt(40) + 1 + 60;
+			int sci = rand.nextInt(40) + 1 + 60;
+			int eng = rand.nextInt(40) + 1 + 60;
+
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, index + 10);
 			psmt.setInt(2, kor);
