@@ -36,10 +36,8 @@ public class Ex01 {
 //			prop.forEach((key, val) -> System.out.println(key + " : " + val));
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

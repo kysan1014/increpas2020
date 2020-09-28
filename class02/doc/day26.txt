@@ -1,0 +1,365 @@
+# day26
+
+JDBC
+==> 자바 프로그램을 이용해서 데이터베이스를 컨트롤 할 수 있는 외부 API
+
+	데이터베이스는 그 데이터베이스가 가진 DBMS에 의해서 성능이 결정된다.
+	이말은 각각의 데이터베이스마다 질의명령을 처리하는 방법(DBMS)이 다르다라는
+	이야기가 된다.
+	따라서 개발자 입장에서 보면 데이터베이스마다
+	그 데이터베이스의 DBMS에 따라서 프로그램 방식을 다르게 해야 한다.
+	
+	그래서
+	자바 안에 DBMS를 만들어 놓고
+	개발자는 자바의 DBMS에게만 명령을 내리도록 해 놓았다.
+	(결과적으로 개발자는 DBMS에 요청하는 방식으로만 처리하면 된다.)
+	자바 안에 있는 DBMS가 실제 데이터베이스와 연결해서
+	처리하도록 해 놓았다.
+	
+	이런 해결방법으로 자바의 DBMS가 JDBC 이다.
+	
+	우리가 JDBC를 배운다는 개념은
+	우리는 JDBC에게만 명령을 내리고( ==> 한가지 방법으로 명령을 하고 )
+	JDBC가 알아서 필요한 데이터베이스의 DBMS에게 명령을 전달한다.
+	
+	그래서 개발자의 작업이 편해졌다....
+	
+참고 ]
+	JDBC와 실제 DBMS를 연결하는 프로그램은
+	그 데이터베이스를 만든 회사에서 제공한다.
+	
+	오라클의 경우
+	우리는 버젼 6을 사용할 예정이므로
+	
+	https://www.oracle.com/database/technologies/jdbcdriver-ucp-downloads.html
+	
+	에 접속해서 ojdbc6.jar 를 다운 받는다.
+	
+***
+자바 개발자(데이터베이스 처리를 원하는)가 가장 먼저 해야할 일
+	
+	1. 사용하려는 데이터베이스와 JDBC를 연결하는 프로그램을 찾아내는 것이다.
+		이 프로그램을 우리는 "JDBC Driver" 라고 부른다.	
+		
+	2. 찾아낸 외부 API를 이클립스에 등록해서
+		이클립스에서 이 외부 API를 사용할 수 있도록 조치를 해야한다.
+		
+		외부 API 등록하는 방법
+			1) 	프로젝트를 선택하고 
+				마우스오른쪽버튼 클릭하거나
+				단축키(ALT + ENTER)를 누르고 
+				Properties 메뉴를 선택한다.
+				
+			2) 	왼쪽 창에서 Java Build Path를 선택한다.
+			3) 	가운데 창에서 3번째 탭인 Libraries를 선택한다.
+			4) 	Add External JARs 버튼을 선택하고
+				다운받은 드라이버(ojdbc6.jar)를 선택한다.
+				
+참고 ]
+	인터페이스로 만들어진 이유
+	==> 세션을 관리하는 방법이
+		각각의 DBMS마다 다르므로
+		접속하는 순간 함수의 기능을 거기에 맞도록 조절하기 위해서...
+-------------------------------------------------------------------------------------------	
+	
+JDBC 프로그램의 결론
+	0. JDBC Driver를 구한다.
+	1. 드라이버를 로딩한다.
+		방법 ]
+			Class.forName()
+	2. 데이터베이스에 접속을 한다.
+		
+		Connection con = DriverManager.getConnection();
+	############## 여기까지가 데이터베이스에 따라서 약간씩 차이가 나는 부분 ########
+	
+	3. JDBC와 실제 DBMS 사이에 명령을 전달 할 수 있는 도구를 만들어야 한다.
+		(
+			오라클은 서버 데이터베이스이다.
+			즉, 프로그램이 동작하는 컴퓨터와 데이터베이스가 있는 컴퓨터는 다를 수 있다.
+		)
+		
+		사용하는 클래스(인터페이스) Statement
+		
+		만드는 방법
+			Statement stmt = con.createStatement();
+			
+		참고 ]
+			질의명령을 실행하는 방법
+			(Statement에 질의명령을 싫어서 보내는 방법)
+			
+			1. execute(String sql)
+				==> 질의명령을 실행한 후 JDBC에게 보고하지 않는다.
+					반환값이 boolean 인데
+					이것은 질의실행이 되었는지 알려주는 기능이 아니고
+					데이터베이스가 JDBC에게 명령을 받았는지만 
+					알려주는 기능이다.
+					(이 반환값은 질의실행여부와는 전혀 상관이 없는 반환값이다.)
+					
+				주로 실행여부에 관계없는 명령
+				create, insert,.... 주로 사용하는 명령이다.
+			
+			***
+			2. executeQuery(String sql)
+				==> 반환값이 ResultSet 인데
+					질의명령의 실행결과 탄생하는 인라인뷰를 관리하는 클래스이다.
+					(오라클의 커서와 비슷하다.)
+					
+					100% SELECT 질의 명령에 사용한다.
+					
+					
+			3. executeUpdate(String sql)
+				==> 반환값이 int 안데
+					이 반환값의 의미는 질의를 실행한 결과
+					변화된 데이터의 숫자를 알려준다.
+					
+					예 ]
+						UPDATE 를 시키는데 몇개의 데이터가 수정이 되었는지...
+						DELETE 를 시키는데 몇개의 데이터가 삭제가 되었는지...
+						
+				주로 질의명령의 실행결과 여버를 판단해야 할 경우
+				사용하는 명령
+					UPDATE, DELETE,....
+					
+			원칙적으로 아무것이나 사용해도 가능하다.
+			
+-------------------------------------------------------------------------------------------
+-- 테이블 준비
+
+오라클의 hello 계정에 회원의 정보를 관리할 테이블을 만들고
+세명의 데이터를 저장한다.
+
+CREATE TABLE member01(
+    mno NUMBER(4)
+        CONSTRAINT MEMB01_NO_PK PRIMARY KEY,
+    id VARCHAR2(10 CHAR)
+        CONSTRAINT MEMB01_ID_UK UNIQUE
+        CONSTRAINT MEMB01_ID_NN NOT NULL,
+    name VARCHAR2(10 CHAR)
+        CONSTRAINT MEMB01_NAME_NN NOT NULL,
+    mail VARCHAR2(50 CHAR)
+        CONSTRAINT MEMB01_MAIL_UK UNIQUE
+        CONSTRAINT MEMB01_MAIL_NN NOT NULL,
+    tel VARCHAR2(13 CHAR)
+        CONSTRAINT MEMB01_TEL_UK UNIQUE
+        CONSTRAINT MEMB01_TEL_NN NOT NULL,
+    gen CHAR(1)
+        CONSTRAINT MEMB01_GEN_CK CHECK (gen IN ('F', 'M'))
+        CONSTRAINT MEMB01_GEN_NN NOT NULL,
+    avt NUMBER(2)
+        CONSTRAINT MEMB01_AVT_NN NOT NULL
+        CONSTRAINT MEMB01_AVT_FK REFERENCES avatar(ano),
+    isshow CHAR(1) DEFAULT 'Y'
+        CONSTRAINT MEMB01_SHOW_NN NOT NULL
+        CONSTRAINT MEMB01_SHOW_CK CHECK (isshow IN('Y', 'N'))
+);
+
+
+INSERT INTO
+    member01(mno, id, name, mail, tel, gen, avt)
+VALUES(
+    1000, 'euns', '전은석', 'euns@increpas.com',
+    '010-3175-9042', 'M', 11
+);
+
+INSERT INTO
+    member01(mno, id, name, mail, tel, gen, avt)
+VALUES(
+    1001, 'joo', '김주영', 'joo@increpas.com',
+    '010-1111-1111', 'F', 14
+);
+
+INSERT INTO
+    member01(mno, id, name, mail, tel, gen, avt)
+VALUES(
+    1002, 'joseph', '윤요셉', 'joseph@increpas.com',
+    '010-2222-2222', 'M', 12
+);
+------------------------------------------------------------------------------------------
+
+SELECT 질의 결과 사용하기
+
+	JDBC에서 SELECT 질의명령을 보내면 
+	그 결과(인라이테이블)을 ==> 인라인 테이블은 메모리에 저장되고
+	ResultSet 이라는 인터페이스가 관리를 하도록 하고 있다.
+	
+	우리는 ResultSet 이라는 인터페이스를 이용해서
+	인라인테이블의 결과 중에서 필요한 데이터를 선택해서 사용할 수 있게된다.
+	
+	인라인테이블의 결과중 원하는 데이터를 꺼내는 방법은
+	몇번째줄의 몇번째 칸의 데이터를 꺼내라 가 아니고
+	
+	현재 작업줄의 몇번째칸을 꺼내라 의 방식으로 처리한다.
+	이때 현재 작업줄은 가상의 레코드 포인터라고 말한다.
+	
+	중요함수
+		1. 가상의 레코드 포인터(현재 작업 위치)를 이동시켜야 한다.
+			
+			absolute(int row)
+			==> 지정한 행으로 이동
+			
+			afterLast()
+			==> EOF로 이동
+			
+			beforeFirst()
+			==> BOF로 이동
+			
+			first()
+			==> 첫번째 데이터로 이동
+			
+			last()
+			==> 마지막 데이터로 이동
+			
+			next()
+			==> 현재 작업행의 다음행으로 이동
+			
+			previous()
+			==> 현재 작업행의 이전행으로 이동
+			
+			주의사항 ]
+				afterLast(), beforeFirst()
+				==> 항상 이동에 성공한다.
+					왜냐하면 BOF, EOF는 인라인테이블이 만들어지면
+					자바가 자동으로 만들어주는 가상의 위치이므로
+					항상 존재한다.
+					
+				이외의 함수들은 이동에 실패하는 경우도 있다.
+				
+	2. 데이터 꺼내는 함수
+	
+		getXXX()
+		==> XXX는 꺼낼 데이터를 사용할 데이터형태 이름
+			--> 실제 데이터베이스에 있는 형태가 아니고
+				그 데이터를 자바에서 사용하고 싶은 형태로 꺼내면 된다.
+				( 데이터베이스의 형태와 달라도 상관이 없다. )
+				
+			예 ]
+				나이를 꺼내고 싶다.
+				나이는 자바에서는 정수 타입이므로
+				getInt("나이")
+				
+				급여를 꺼내고 싶다.
+				급여를 소수점이 있는 형태로 꺼내고 싶다.
+				getDouble()
+				
+		주의사항 ]
+			
+			꺼내는 방식 ]
+				
+				1. getXXX(필드의 위치)
+					==> 위치로 알려주는 방식
+						자바는 인덱스가 0부터 시작하지만
+						JDBC 만큼은 인덱스를 1부터 시작한다.
+						
+				2. getXXX("필드이름")
+					==> 필드이름으로 알려주는 방식
+						참고 ]
+							질의명령에서 필드에 별칭을 부여한 경우에는
+							필드이름대신 별칭으로 꺼내야 한다.
+							
+					예 ]
+						SELECT comm bonus FROM EMP;
+						==> getInt("comm");			------------ X
+							getInt("bonus");		------------ O
+							getInt(1);				------------ O
+							
+						왜냐하면 질의명령의 결과를 인라인테이블(가상의테이블)로 만들어서
+						꺼내오기 때문에....
+						
+		결론적으로
+		SELECT 질의명령을 실행하면
+		먼저 필요한 위치로 레코드포인터를 이동시킨후
+		필요한 데이터를 하나씩 꺼내야 한다.
+		
+-----------------------------------------------------------------------------------------------------------------------
+	양방향 이동이 가능한 인라인테이블 만드는 방법
+	==> 결론
+		Statement 가 양방향 스테이트먼트가 되어야 한다.
+		
+			con.createStatement(int resultSetType, int resultSetConcurrency)
+		를 이용해서 Statement를 만들어야 양방향 인라인테이블이 만들어질 수 있다.
+		
+		참고 ]
+			int resultSetType
+				ResultSet.TYPE_FORWARD_ONLY
+				==> 기본값으로 전방향 인라인테이블을 만들어준다.
+				
+				ResultSet.TYPE_SCROLL_INSENSITIVE
+				==> 상대방이 바뀐 결과를 적용받지 않는다.
+				ResultSet.TYPE_SCROLL_SENSITIVE
+				==> 상대방이 바뀐 결과를 적용받는다.
+				==> 양방향 인라인테이블이 만들어진다.
+				
+			int resultSetConcurrency
+				ResultSet.CONCUR_READ_ONLY
+				==> JDBC에서는 인라인테이블을 수정할 수 없도록 한다.
+				ResultSet.CONCUR_UPDATABLE
+				==> JDBC에서 인라인테이블을 수정 가능하도록 한다.
+				
+-----------------------------------------------------------------------------------------------------------------------
+
+PreparedStatement
+==> 질의 명령을 데이터베이스에게 전달하는 Statement의 일종이다.
+
+	Statement 의 단점
+		질의명령을 실행할때마다 매번 질의명령을 데이터베이스에게 전달하는 형식을 취한다.
+		그런데 질의명령이 긴 경우도 있다.
+		데이터베이스는 네트워크를 이용한다.
+		네트워크의 부하가 걸릴수도 있다.
+		
+		이 문제점을 해결하기 위한 다른 Statement가 생겼는데 
+		PreparedStatement 이다.
+		이것은 미리 질의명령을 알려준 후 실행이 필요하면 실행만 해달라고 요구하면 되는 형식이다.
+		즉, 매번 질의명령을 알려줄 필요가 없어진다.
+		
+		우리가 작업을 하다보면 매번 같은 질의명령을 실행 경우가 많다.
+		그런데 이반 Statement는 매번 같은 질의명령이라도 다시 보내줘야 한다.
+		이런 경우 미리 질의명령을 알려주는 전속 Statement를 만들어 놓고
+		질의명령은 보내지 않고 실행만 부탁한다면 처리속도가 그만큼 유리해 질 것이고
+		프로그램 작성도 편해질 것이다.
+		
+	만드는 방법 ]
+		
+		con.prepareStatement();
+		
+	참고 ]
+		자주 사용하는 질의명령이라도 데이터는 달라질 수 있다.
+		이 문제를 해결하는 방법으로
+		질의명령을 만들때
+		변화되는 데이터부분은 "?" 로 대신한다.
+		
+		"?"부분만 질의명령을 실행하기 직전에 채워놓고
+		질의 명령을 실행하는 방식을 채택했다.
+		
+		예 ]
+			
+			String sql = "SELECT name FROM memeber01 WHERE id = ?";
+			
+			
+	주요함수 ]
+	
+		? 를 채우는 함수
+						
+			setXXX(위치, 데이터);
+			
+			XXX 	: 채울 데이터 타입
+			위치 	: ? 의 위치
+			데이터 	: ? 대신 채울 데이터
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	

@@ -8,12 +8,10 @@ public class Semo implements Figure{
 	private int height;
 	
 	public Semo() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public int getArea() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

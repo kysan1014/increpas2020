@@ -18,7 +18,6 @@ public class Test06 {
 				s = doc.html();
 				System.out.println(s);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

@@ -18,7 +18,6 @@ import java.util.Scanner;
 public class HMWK01 {
 
 	public HMWK01() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public static void main(String[] args) {

@@ -23,10 +23,8 @@ public class Test02 {
 			fout = new FileOutputStream(path);
 			prop.store(fout, "IU ♥ Me!");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	

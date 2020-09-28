@@ -30,7 +30,6 @@ public class Test10 {
 		try {
 			new Test10();
 		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

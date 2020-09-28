@@ -178,7 +178,6 @@ class Stud {
 	
 	public Stud() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getName() {
