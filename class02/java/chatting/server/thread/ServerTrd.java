@@ -52,7 +52,7 @@ public class ServerTrd extends Thread {
 		 */
 		msg = id + " ] - " + msg;
 
-//		System.out.println("*** server msg : " + msg);
+		System.out.println("*** server msg : " + msg);
 
 		// 이제 메세지는 준비되었고 준비된 메세지를 모든 접속한 클라이언트에게 뿌려주면 된다.
 		int size = 0; // 전송될 클라이언트의 명수를 기억할 변수
@@ -78,13 +78,21 @@ public class ServerTrd extends Thread {
 
 	public void loginProc(String msg) throws Exception {
 		MemberDao mDao = new MemberDao();
-		id = msg.substring(0, msg.charAt('|'));
-		String pw = msg.substring(msg.charAt('|') + 1);
+		id = msg.substring(0, msg.indexOf('|'));
+		String pw = msg.substring(msg.indexOf('|') + 1);
 		int cnt = mDao.getLogin(id, pw);
 		if (cnt == 1) {
 			msg = "110Y";
+			synchronized(main.clientList) {
+				main.clientList.add(this);
+				
+				System.out.println(msg);
+				
+			}
 		} else {
 			msg = "110N";
+//			main.clientList.remove(this);
+
 		}
 		prw.println(msg);
 		prw.flush();
@@ -105,6 +113,7 @@ public class ServerTrd extends Thread {
 		try {
 			while (true) {
 				String msg = br.readLine();
+				System.out.println(msg);
 				if (msg == null) {
 					break;
 				}
@@ -116,6 +125,7 @@ public class ServerTrd extends Thread {
 					loginProc(msg);
 					break;
 				case 230:
+					System.out.println("server came here!");
 					chatProc(msg);
 					break;
 				default:

@@ -58,7 +58,8 @@ public class ChatClient extends JFrame {
 		// 이제 화면이 준비가 되었으니 통신을 준비하자.
 		try {
 			// 서버에 연결을 시도하자.
-			socket = new Socket("192.168.0.21", 7788);
+//			socket = new Socket("192.168.0.21", 7788);
+			socket = new Socket("192.168.0.97", 7788);
 
 			// 통신에 사용할 스트림을 준비한다.
 			InputStream in = socket.getInputStream();

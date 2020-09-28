@@ -1,10 +1,5 @@
 package chatting.server;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -49,14 +44,13 @@ public class ChatServer {
 					지금은 각각의 클라이언트와 대화하는 프로그램을 독립적으로 만들 예정이다.
 				 */
 				ServerTrd t = new ServerTrd(this, socket);
-
-				clientList.add(t);
+				t.start();
+				
 				System.out.println("********** 2 : " + clientList.size());
 				/*
 					t 안에는 그 클라이언트에 대한 모든 정보를 변수로 준비하고 있고
 					t를 통째로 넣어주면 필요할 때 저어보를 꺼내서 사용할 수 있게된다.
 				 */
-				t.start();
 			} catch(Exception e) {
 				System.out.println("********** 3 : " + clientList.size());
 				System.out.println("클라이언트 접속 종료");
